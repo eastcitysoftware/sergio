@@ -54,6 +54,8 @@ sergio C:\path\to\website --port 3000 --disable-compression --verbose
 
 ### Run multiple websites
 
+> Changes to the `sergio.json` file will automatically trigger a reload of the server.
+
 ```shell
 sergio C:\path\to\sergio.json
 ```
