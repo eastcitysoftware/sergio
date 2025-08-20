@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="500"
+   height="250.00002"
+   viewBox="0 0 132.29167 66.145837"
+   version="1.1"
+   id="svg1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1">
+    <rect
+       x="3.4015749"
+       y="2.7212598"
+       width="495.94958"
+       height="170.07874"
+       id="rect1" />
+  </defs>
+  <g
+     id="layer1">
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,-0.66196845,3.2267191)"
+       id="text1"
+       style="font-size:125px;line-height:1.25;font-family:'Cormorant Garamond';-inkscape-font-specification:'Cormorant Garamond';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect1);stroke:#000000;stroke-width:3;stroke-dasharray:none;stroke-opacity:1"
+       x="181.50008"
+       y="0"><tspan
+         x="49.861328"
+         y="133.38392"
+         id="tspan3"><tspan
+           style="font-weight:bold;font-size:144px;font-family:'Trebuchet MS';-inkscape-font-specification:'Trebuchet MS, Bold';text-align:center;text-anchor:middle"
+           id="tspan2">sergio</tspan></tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:5.29167;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+       d="m 23.219999,52.495003 h 73.260002 v 0"
+       id="path1" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:5.29167;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+       d="m 99.541251,52.493334 h 8.864999 v 0"
+       id="path1-4" />
+  </g>
+</svg>
