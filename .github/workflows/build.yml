@@ -1,0 +1,29 @@
+name: build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dotnet-version: ['9.0.x']
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+
+      - name: Install solution dependencies
+        run: |
+          dotnet restore Sergio.sln --force-evaluate --no-http-cache --force
+
+      - name: Test Core
+        run: |
+          dotnet build src/Sergio/src -c Release
+          dotnet test src/Sergio/test -c Release

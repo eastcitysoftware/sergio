@@ -1,22 +1,17 @@
-# Sergio
-A robust static file server, written in F# using Kestrel
+<div align="center">
 
-## Getting Started
+![sergio](https://github.com/eastcitysoftware/sergio/blob/assets/sergio.png?raw=true)
 
-Assuming binary is available in your PATH and named `sergio.exe`:
+[![build](https://github.com/eastcitysoftware/sergio/actions/workflows/build.yml/badge.svg)](https://github.com/eastcitysoftware/sergio/actions/workflows/build.yml)
+![License](https://img.shields.io/github/license/eastcitysoftware/sergio)
 
-```
-USAGE: sergio [--help] [--listener <string> <int>] [--log-level <int>] [--gzip <bool>] <path>
+Static web server with hot reloading.
+</div>
 
-ROOT:
+---
 
-    <path>                specify a working directory
+Meet Sergio, the no-frills static web server that’s here to make your life easier. Need to spin up a local server faster than you can say "localhost"? Sergio’s got you covered. No bloated configs, no unnecessary drama—just pure, unadulterated serving power. Whether you’re testing, debugging, or showing off your latest masterpiece, Sergio serves it hot and fresh every time.
 
-OPTIONS:
+Because life's too short for 404s.
 
-    --listener <string> <int>
-                          specify a listener (ex: --listener localhost 5001)
-    --log-level <int>     set the log level (default = LogLevel.Error)
-    --gzip <bool>         enable gzip compress (default = False)
-    --help                display this list of options.
-```
+---
