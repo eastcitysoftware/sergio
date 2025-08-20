@@ -5,7 +5,7 @@
 [![build](https://github.com/eastcitysoftware/sergio/actions/workflows/build.yml/badge.svg)](https://github.com/eastcitysoftware/sergio/actions/workflows/build.yml)
 ![License](https://img.shields.io/github/license/eastcitysoftware/sergio)
 
-Static web server with hot reloading.
+Static web server with hot reload.
 </div>
 
 ---
