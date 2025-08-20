@@ -1,0 +1,12 @@
+[
+    {
+        "domain": "site1.local",
+        "root": "C:/users/pim/git_eastcitysoftware/lindseybrouwersdesign/public",
+        "cacheExpirationSeconds": 3600
+    },
+    {
+        "domain": "site2.local",
+        "root": "C:/users/pim/git/pimbrouwersdotcom/docs",
+        "cacheExpirationSeconds": 3600
+    }
+]

@@ -1,46 +1,66 @@
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.FileProviders;
-using Microsoft.Extensions.Options;
 
 namespace Sergio;
 
+public sealed record StaticFileServerConfig(
+    int Port = 8080,
+    bool DisableCompression = false,
+    bool VerboseLogging = false
+);
+
 public static class StaticFileServer {
-    public static WebApplication? Build(string websitesFile, int port = 80) {
-        var wapp = BuildServer(websitesFile, port);
+    public static WebApplication? Build(StaticFileServerConfig config, List<WebsiteConfig> websites) {
+        var wapp = BuildServer(config);
 
-        var websitesOption = wapp.Services.GetRequiredService<IOptions<List<WebsiteConfig>>>();
-
-        if (websitesOption.Value is List<WebsiteConfig> websites && websites.Count > 0) {
-            wapp.ConfigureWebsites(websites);
+        if (websites.Count > 0) {
+            wapp.ConfigureWebsites(config, websites);
             return wapp;
         }
 
         return default;
     }
 
-    static WebApplication BuildServer(string websitesFile, int port) {
+    static WebApplication BuildServer(StaticFileServerConfig config) {
         var bldr = WebApplication.CreateEmptyBuilder(new());
         bldr.WebHost.UseKestrelCore();
-        bldr.Configuration.AddJsonFile(websitesFile, optional: false);
+        bldr.Logging.AddConsole();
+
+        if (config.VerboseLogging) {
+            bldr.Logging.SetMinimumLevel(LogLevel.Information);
+        }
+        else {
+            bldr.Logging.SetMinimumLevel(LogLevel.Critical);
+        }
+
+        if (!config.DisableCompression) {
+            bldr.Services.AddResponseCompression();
+        }
+
         bldr.Services
             .Configure<KestrelServerOptions>(options => {
-                options.ListenLocalhost(port);
+                options.ListenLocalhost(config.Port);
                 options.Limits.MaxRequestBodySize = 1 * 1024 * 1024; // 1 MB
-            })
-            .Configure<List<WebsiteConfig>>(bldr.Configuration.GetSection("Websites"));
+            });
 
-        return bldr.Build();
+        var wapp = bldr.Build();
+
+        if (!config.DisableCompression) {
+            wapp.UseResponseCompression();
+        }
+
+        return wapp;
     }
 
-    static void ConfigureWebsites(this WebApplication wapp, List<WebsiteConfig> websites) {
+    static void ConfigureWebsites(this WebApplication wapp, StaticFileServerConfig config, List<WebsiteConfig> websites) {
         foreach (var websiteConfig in websites) {
-            Console.WriteLine($"Configuring website: {websiteConfig.domain}");
-            Console.WriteLine($"┕ Root: {websiteConfig.root}");
+            Console.WriteLine($"Configuring website: {websiteConfig.Domain}:{config.Port}");
+            Console.WriteLine($"  └ Root: {websiteConfig.Root}");
 
             wapp.MapWhen(
-                ctx => string.Equals(websiteConfig.domain, ctx.Request.Host.Host, StringComparison.OrdinalIgnoreCase),
+                ctx => string.Equals(websiteConfig.Domain, ctx.Request.Host.Host, StringComparison.OrdinalIgnoreCase),
                 website => {
-                    var fileProvider = new PhysicalFileProvider(websiteConfig.root);
+                    var fileProvider = new PhysicalFileProvider(websiteConfig.Root);
                     website
                         .UseDefaultFiles(new DefaultFilesOptions {
                             FileProvider = fileProvider,
@@ -54,9 +74,3 @@ public static class StaticFileServer {
         }
     }
 }
-
-public sealed record WebsiteConfig(
-    string domain,
-    string root,
-    int cacheExpirationSeconds
-);
