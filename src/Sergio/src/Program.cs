@@ -1,6 +1,4 @@
 using System.CommandLine;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using Sergio;
 
 var command =
@@ -10,7 +8,7 @@ var command =
 var inputArgument =
     new Argument<string>(
         name: "input") {
-        Description = "The absolute path to a website directory or sergio.json file"
+        Description = "The path to a website directory or sergio.json file"
     };
 
 var portOption =
@@ -41,6 +39,12 @@ command.Parse(args).Invoke();
 
 void ExecuteCommand(ParseResult parseResult) {
     var input = parseResult.GetValue(inputArgument) ?? ".";
+
+    // test if the input is a relative path and convert to absolute
+    if (!Path.IsPathRooted(input)) {
+        input = Path.GetFullPath(input);
+    }
+
     var config = new StaticFileServerConfig(
         Port: parseResult.GetValue(portOption),
         DisableCompression: parseResult.GetValue(enableCompressionOption),
